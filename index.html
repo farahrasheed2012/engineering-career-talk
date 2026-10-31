@@ -492,8 +492,16 @@
       font-variant-numeric: tabular-nums;
     }
 
+    .slide.light .build-timer .clock {
+      color: var(--gold);
+    }
+
     .build-timer.done .clock {
       color: #f0c97a;
+    }
+
+    .slide.light .build-timer.done .clock {
+      color: var(--gold);
     }
 
     .build-timer .timer-actions {
@@ -517,9 +525,20 @@
       cursor: pointer;
     }
 
+    .slide.light .build-timer button {
+      border-color: rgba(15, 47, 56, 0.25);
+      background: rgba(15, 47, 56, 0.06);
+      color: var(--ink);
+    }
+
     .build-timer button:hover {
       background: rgba(196, 160, 86, 0.35);
       border-color: var(--gold-bright);
+    }
+
+    .slide.light .build-timer button:hover {
+      background: rgba(156, 123, 64, 0.2);
+      border-color: var(--gold);
     }
 
     .build-timer .timer-hint {
@@ -570,7 +589,7 @@
     </section>
 
     <!-- 2 -->
-    <section class="slide" data-slide>
+    <section class="slide light" data-slide>
       <p class="eyebrow">So… what is it?</p>
       <h2>Engineers are people who make stuff that actually works.</h2>
       <ul class="points">
@@ -613,7 +632,7 @@
     </section>
 
     <!-- 4 discuss -->
-    <section class="slide light" data-slide>
+    <section class="slide" data-slide>
       <p class="eyebrow">Talk time · ~2 min</p>
       <h2>Turn to someone next to you.</h2>
       <div class="discuss-box">
@@ -624,7 +643,7 @@
     </section>
 
     <!-- 5 -->
-    <section class="slide" data-slide>
+    <section class="slide light" data-slide>
       <p class="eyebrow">Why bother?</p>
       <h2>Because the cool stuff you use didn’t appear by magic.</h2>
       <ul class="points">
@@ -635,7 +654,7 @@
     </section>
 
     <!-- 5a fields -->
-    <section class="slide light" data-slide>
+    <section class="slide" data-slide>
       <p class="eyebrow">Kinds of engineers · 1 of 2</p>
       <h2>There’s not just one kind.</h2>
       <div class="grid-fields">
@@ -663,7 +682,7 @@
     </section>
 
     <!-- 5b fields -->
-    <section class="slide" data-slide>
+    <section class="slide light" data-slide>
       <p class="eyebrow">Kinds of engineers · 2 of 2</p>
       <h2>A few more doors.</h2>
       <div class="grid-fields">
@@ -691,7 +710,7 @@
     </section>
 
     <!-- 5c overlap -->
-    <section class="slide light" data-slide>
+    <section class="slide" data-slide>
       <p class="eyebrow">Plot twist</p>
       <h2>These fields mix more than the labels suggest.</h2>
       <ul class="points">
@@ -703,7 +722,7 @@
     </section>
 
     <!-- hot fields -->
-    <section class="slide" data-slide>
+    <section class="slide light" data-slide>
       <p class="eyebrow">Also hot right now</p>
       <h2>Some modern lanes students ask about.</h2>
       <div class="grid-fields">
@@ -735,7 +754,7 @@
     </section>
 
     <!-- pick a door -->
-    <section class="slide light" data-slide>
+    <section class="slide" data-slide>
       <p class="eyebrow">Talk time · ~2 min</p>
       <h2>Pick a door.</h2>
       <div class="discuss-box">
@@ -746,7 +765,7 @@
     </section>
 
     <!-- 7 subjects + skills -->
-    <section class="slide" data-slide>
+    <section class="slide light" data-slide>
       <p class="eyebrow">In high school</p>
       <h2>What actually helps — classes + habits.</h2>
       <div class="two-col">
@@ -767,7 +786,7 @@
     </section>
 
     <!-- 8 activity intro -->
-    <section class="slide light" data-slide>
+    <section class="slide" data-slide>
       <p class="eyebrow">Mini challenge</p>
       <h2>Engineers don’t just talk. Let’s build.</h2>
       <ul class="points">
@@ -780,7 +799,7 @@
     </section>
 
     <!-- 10 activity go -->
-    <section class="slide" data-slide data-build-slide>
+    <section class="slide light" data-slide data-build-slide>
       <p class="eyebrow">Go time</p>
       <p class="brand-mark" style="font-size:clamp(2.2rem,6vw,4rem);max-width:12ch;">Build<em>!</em></p>
       <p class="lede">8 minutes. Tallest standing tower wins bragging rights.</p>
@@ -799,7 +818,7 @@
     </section>
 
     <!-- 9 activity rules -->
-    <section class="slide light" data-slide data-build-pair>
+    <section class="slide" data-slide data-build-pair>
       <p class="eyebrow">How we win</p>
       <h2>Same loop real engineers use.</h2>
       <ul class="points">
@@ -812,7 +831,7 @@
     </section>
 
     <!-- 11 debrief -->
-    <section class="slide" data-slide>
+    <section class="slide light" data-slide>
       <p class="eyebrow">Debrief · 2 min</p>
       <h2>Quick share.</h2>
       <div class="discuss-box">
@@ -823,7 +842,7 @@
     </section>
 
     <!-- 10 -->
-    <section class="slide light" data-slide>
+    <section class="slide" data-slide>
       <p class="eyebrow">The path (simplified)</p>
       <h2>High school → college → job. That’s the usual movie — usual, not only.</h2>
       <ul class="points">
@@ -835,7 +854,7 @@
     </section>
 
     <!-- 10b Westwood pathways -->
-    <section class="slide" data-slide>
+    <section class="slide light" data-slide>
       <p class="eyebrow">Westwood · RRISD</p>
       <h2>Academies / Programs of Study</h2>
       <div class="grid-fields">
@@ -860,7 +879,7 @@
     </section>
 
     <!-- 10c Vandegrift -->
-    <section class="slide light" data-slide>
+    <section class="slide" data-slide>
       <p class="eyebrow">Vandegrift · Leander ISD</p>
       <h2>AP-heavy — and STEM you can build in.</h2>
       <div class="grid-fields">
@@ -885,7 +904,7 @@
     </section>
 
     <!-- 10d shared tips -->
-    <section class="slide" data-slide>
+    <section class="slide light" data-slide>
       <p class="eyebrow">Wherever you go to school</p>
       <h2>A loose game plan — not a stress checklist.</h2>
       <div class="grid-fields">
@@ -909,7 +928,7 @@
     </section>
 
     <!-- named activities -->
-    <section class="slide light" data-slide>
+    <section class="slide" data-slide>
       <p class="eyebrow">Want specific ideas?</p>
       <h2>Stuff students around here actually join.</h2>
       <div class="grid-fields">
@@ -934,7 +953,7 @@
     </section>
 
     <!-- software worlds -->
-    <section class="slide" data-slide>
+    <section class="slide light" data-slide>
       <p class="eyebrow">My path · software</p>
       <h2>Software shows up in stuff you already love.</h2>
       <div class="grid-fields cols-5">
@@ -982,7 +1001,7 @@
     </section>
 
     <!-- software scavenger -->
-    <section class="slide light" data-slide>
+    <section class="slide" data-slide>
       <p class="eyebrow">Talk time · ~1–2 min</p>
       <h2>Software scavenger hunt.</h2>
       <div class="discuss-box">
@@ -993,7 +1012,7 @@
     </section>
 
     <!-- 12 AI -->
-    <section class="slide" data-slide>
+    <section class="slide light" data-slide>
       <p class="eyebrow">Okay, AI</p>
       <h2>AI is everywhere — and engineers build a lot of it.</h2>
       <ul class="points">
@@ -1005,7 +1024,7 @@
     </section>
 
     <!-- 12b why learn -->
-    <section class="slide light" data-slide>
+    <section class="slide" data-slide>
       <p class="eyebrow">But wait</p>
       <h2>If AI can spit out answers… why still learn math and science?</h2>
       <ul class="points">
@@ -1018,7 +1037,7 @@
     </section>
 
     <!-- 12c future of work -->
-    <section class="slide" data-slide>
+    <section class="slide light" data-slide>
       <p class="eyebrow">Looking ahead</p>
       <h2>Jobs will keep changing. That’s normal.</h2>
       <ul class="points">
@@ -1030,7 +1049,7 @@
     </section>
 
     <!-- 13 discuss -->
-    <section class="slide light" data-slide>
+    <section class="slide" data-slide>
       <p class="eyebrow">Talk time · ~2 min</p>
       <h2>Be honest.</h2>
       <div class="discuss-box">
