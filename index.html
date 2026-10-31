@@ -242,6 +242,11 @@
       font-size: clamp(0.92rem, 1.2vw, 1.05rem);
     }
 
+    .grid-fields.cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      max-width: 920px;
+    }
+
     .grid-fields.cols-5 {
       grid-template-columns: repeat(5, minmax(0, 1fr));
       max-width: 1100px;
@@ -253,6 +258,9 @@
     }
 
     @media (max-width: 900px) {
+      .grid-fields.cols-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
       .grid-fields.cols-5 {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -725,7 +733,7 @@
     <section class="slide light" data-slide>
       <p class="eyebrow">Also hot right now</p>
       <h2>Some modern lanes students ask about.</h2>
-      <div class="grid-fields">
+      <div class="grid-fields cols-3">
         <div class="field">
           <strong>AR / VR</strong>
           <span>Headset games, AR filters, training sims that feel like play.</span>
