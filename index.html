@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Engineering Careers · ICLT Sunday School</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0c1f24;
+      --ink-soft: #2a454c;
+      --paper: #f3f7f6;
+      --teal: #0f2f38;
+      --teal-mid: #1a4a56;
+      --mint: #d8ebe6;
+      --gold: #9c7b40;
+      --gold-bright: #c4a056;
+      --white: #ffffff;
+      --slide-pad: clamp(1.5rem, 5vw, 4.5rem);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: "Manrope", system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--teal);
+    }
+
+    .deck {
+      position: relative;
+      height: 100%;
+      width: 100%;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      align-content: center;
+      padding: var(--slide-pad);
+      padding-bottom: calc(var(--slide-pad) + 3.5rem);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(18px);
+      transition: opacity 0.45s ease, transform 0.45s ease, visibility 0.45s;
+      background:
+        radial-gradient(ellipse 80% 60% at 100% 0%, rgba(156, 123, 64, 0.18), transparent 55%),
+        radial-gradient(ellipse 70% 50% at 0% 100%, rgba(216, 235, 230, 0.12), transparent 50%),
+        linear-gradient(160deg, #0c242c 0%, #0f2f38 45%, #163d47 100%);
+      color: var(--white);
+      overflow: hidden;
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, black, transparent);
+      pointer-events: none;
+    }
+
+    .slide.light {
+      background:
+        radial-gradient(ellipse 90% 70% at 110% -10%, rgba(156, 123, 64, 0.16), transparent 45%),
+        linear-gradient(165deg, #f7faf9 0%, #e9f3f0 55%, #dfecea 100%);
+      color: var(--ink);
+    }
+
+    .slide.light::before {
+      background-image:
+        linear-gradient(rgba(15, 47, 56, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 47, 56, 0.04) 1px, transparent 1px);
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      z-index: 1;
+    }
+
+    .slide > * { position: relative; z-index: 1; max-width: 1100px; }
+
+    .eyebrow {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-bright);
+      margin-bottom: 1rem;
+    }
+
+    .slide.light .eyebrow { color: var(--gold); }
+
+    h1 {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(2.4rem, 6.5vw, 4.6rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      max-width: 14ch;
+    }
+
+    h2 {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(1.9rem, 4.5vw, 3.2rem);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+      max-width: 22ch;
+    }
+
+    .lede {
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      line-height: 1.55;
+      max-width: 38ch;
+      margin-top: 1.25rem;
+      opacity: 0.88;
+      font-weight: 400;
+    }
+
+    .slide.light .lede { color: var(--ink-soft); opacity: 1; }
+
+    .meta {
+      margin-top: 2.5rem;
+      font-size: 0.95rem;
+      opacity: 0.7;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+    }
+
+    .meta span { display: inline-flex; align-items: center; gap: 0.45rem; }
+    .meta span::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: var(--gold-bright);
+      border-radius: 1px;
+    }
+
+    ul.points {
+      list-style: none;
+      display: grid;
+      gap: 0.85rem;
+      margin-top: 0.5rem;
+      max-width: 42rem;
+    }
+
+    ul.points li {
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      line-height: 1.4;
+      padding-left: 1.35rem;
+      position: relative;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .slide.active ul.points li {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .slide.active ul.points li:nth-child(1) { transition-delay: 0.08s; }
+    .slide.active ul.points li:nth-child(2) { transition-delay: 0.16s; }
+    .slide.active ul.points li:nth-child(3) { transition-delay: 0.24s; }
+    .slide.active ul.points li:nth-child(4) { transition-delay: 0.32s; }
+    .slide.active ul.points li:nth-child(5) { transition-delay: 0.4s; }
+    .slide.active ul.points li:nth-child(6) { transition-delay: 0.48s; }
+
+    ul.points li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 0.55rem;
+      height: 0.55rem;
+      background: var(--gold);
+      border-radius: 1px;
+    }
+
+    .slide:not(.light) ul.points li::before { background: var(--gold-bright); }
+
+    .grid-fields {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.75rem 1.25rem;
+      margin-top: 1.5rem;
+      max-width: 900px;
+    }
+
+    .field {
+      border-top: 2px solid var(--gold);
+      padding-top: 0.65rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .slide.active .field {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slide.active .field:nth-child(1) { transition-delay: 0.05s; }
+    .slide.active .field:nth-child(2) { transition-delay: 0.1s; }
+    .slide.active .field:nth-child(3) { transition-delay: 0.15s; }
+    .slide.active .field:nth-child(4) { transition-delay: 0.2s; }
+    .slide.active .field:nth-child(5) { transition-delay: 0.25s; }
+    .slide.active .field:nth-child(6) { transition-delay: 0.3s; }
+    .slide.active .field:nth-child(7) { transition-delay: 0.35s; }
+    .slide.active .field:nth-child(8) { transition-delay: 0.4s; }
+
+    .field strong {
+      display: block;
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+      margin-bottom: 0.35rem;
+    }
+
+    .field span {
+      display: block;
+      font-size: clamp(0.98rem, 1.35vw, 1.12rem);
+      opacity: 0.82;
+      line-height: 1.4;
+    }
+
+    .field span + span {
+      margin-top: 0.4rem;
+      opacity: 0.7;
+      font-size: clamp(0.92rem, 1.2vw, 1.05rem);
+    }
+
+    .grid-fields.cols-5 {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      max-width: 1100px;
+      gap: 0.85rem 1rem;
+    }
+
+    .grid-fields.cols-5 .field span {
+      font-size: clamp(0.95rem, 1.25vw, 1.08rem);
+    }
+
+    @media (max-width: 900px) {
+      .grid-fields.cols-5 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    /* Source notes live in each slide; the dock below is what N toggles */
+    aside.notes { display: none; }
+
+    #speaker-notes {
+      display: none;
+      position: fixed;
+      z-index: 9;
+      left: var(--slide-pad);
+      right: var(--slide-pad);
+      bottom: 4.25rem;
+      max-width: 42rem;
+      padding: 0.75rem 1rem;
+      background: rgba(12, 31, 36, 0.92);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.9rem;
+      line-height: 1.4;
+      border-left: 3px solid var(--gold-bright);
+      pointer-events: none;
+    }
+
+    #speaker-notes .label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.65;
+      margin-bottom: 0.35rem;
+      font-weight: 600;
+    }
+
+    #speaker-notes.empty {
+      opacity: 0.75;
+      font-style: italic;
+    }
+
+    body.show-notes #speaker-notes {
+      display: block;
+    }
+
+    .slide:not(.light) .field { border-top-color: var(--gold-bright); }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem 3rem;
+      align-items: start;
+      max-width: 1000px;
+    }
+
+    @media (max-width: 720px) {
+      .two-col { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem 2.5rem;
+      margin-top: 2rem;
+    }
+
+    .stat strong {
+      display: block;
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .slide:not(.light) .stat strong { color: var(--gold-bright); }
+
+    .stat span {
+      display: block;
+      margin-top: 0.4rem;
+      font-size: 0.9rem;
+      opacity: 0.75;
+      max-width: 14ch;
+    }
+
+    .quote {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      line-height: 1.35;
+      max-width: 28ch;
+      font-weight: 500;
+    }
+
+    .quote cite {
+      display: block;
+      margin-top: 1.25rem;
+      font-family: "Manrope", sans-serif;
+      font-size: 0.9rem;
+      font-style: normal;
+      opacity: 0.65;
+      letter-spacing: 0.04em;
+    }
+
+    .nav {
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem var(--slide-pad) 1.25rem;
+      background: linear-gradient(to top, rgba(12, 31, 36, 0.55), transparent);
+      pointer-events: none;
+    }
+
+    .nav button {
+      pointer-events: auto;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(15, 47, 56, 0.55);
+      color: white;
+      padding: 0.55rem 1rem;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .nav button:hover { background: rgba(156, 123, 64, 0.85); border-color: var(--gold-bright); }
+    .nav button:disabled { opacity: 0.35; cursor: default; }
+
+    .progress {
+      pointer-events: auto;
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .progress button {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border: none;
+      border-radius: 1px;
+      background: rgba(255,255,255,0.35);
+      cursor: pointer;
+    }
+
+    .progress button[aria-current="true"] {
+      background: var(--gold-bright);
+      width: 22px;
+    }
+
+    .counter {
+      pointer-events: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.7);
+      min-width: 4.5rem;
+      text-align: right;
+    }
+
+    .hint {
+      position: fixed;
+      top: 1.25rem;
+      right: var(--slide-pad);
+      z-index: 10;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .brand-mark {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-mark em {
+      font-style: normal;
+      color: var(--gold-bright);
+    }
+
+    .discuss-box {
+      margin-top: 0.5rem;
+      max-width: 36rem;
+    }
+
+    .discuss-box .prompt {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(1.35rem, 3vw, 1.9rem);
+      line-height: 1.3;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+
+    .discuss-box .prompt + .prompt {
+      margin-top: 1rem;
+      opacity: 0.9;
+    }
+
+    .slide a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-color: var(--gold);
+      text-underline-offset: 0.18em;
+      font-weight: 600;
+    }
+
+    .slide:not(.light) a {
+      text-decoration-color: var(--gold-bright);
+    }
+
+    .slide a:hover {
+      color: var(--gold);
+    }
+
+    .slide:not(.light) a:hover {
+      color: var(--gold-bright);
+    }
+
+    .build-timer {
+      margin-top: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .build-timer .clock {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(3.5rem, 12vw, 6.5rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--gold-bright);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .build-timer.done .clock {
+      color: #f0c97a;
+    }
+
+    .build-timer .timer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    .build-timer button {
+      font: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      cursor: pointer;
+    }
+
+    .build-timer button:hover {
+      background: rgba(196, 160, 86, 0.35);
+      border-color: var(--gold-bright);
+    }
+
+    .build-timer .timer-hint {
+      font-size: 0.85rem;
+      opacity: 0.65;
+    }
+
+    #float-timer {
+      display: none;
+      position: fixed;
+      z-index: 8;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.55rem 0.9rem;
+      background: rgba(12, 31, 36, 0.92);
+      color: var(--gold-bright);
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      border-left: 3px solid var(--gold-bright);
+      pointer-events: none;
+    }
+
+    body.show-float-timer #float-timer {
+      display: block;
+    }
+
+    .timer-note {
+      margin-top: 1.75rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.55;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="hint">← → · N notes · T timer</div>
+  <div id="speaker-notes" class="empty" aria-live="polite"><span class="label">Speaker notes</span><span class="body">No notes on this slide.</span></div>
+
+  <div class="deck" id="deck">
+    <!-- 1 -->
+    <section class="slide active" data-slide>
+      <p class="eyebrow">ICLT Sunday School</p>
+      <p class="brand-mark">Engineering<em>?</em></p>
+      <p class="lede">Is it for you? What even is it? And what can you try while you’re still in high school?</p>
+    </section>
+
+    <!-- 2 -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">So… what is it?</p>
+      <h2>Engineers are people who make stuff that actually works.</h2>
+      <ul class="points">
+        <li>You spot a problem → you build a fix → you test it → you make it better.</li>
+        <li>It’s not just “being good at math.” It’s being curious and stubborn in a good way.</li>
+        <li>Your phone, games, cars, hospitals, bridges — someone engineered those.</li>
+      </ul>
+    </section>
+
+    <!-- how I got here -->
+    <section class="slide light" data-slide>
+      <p class="eyebrow">Quick story</p>
+      <h2>How I got here.</h2>
+      <ul class="points">
+        <li>I studied <strong>electrical engineering</strong> — circuits, signals, making physical systems work.</li>
+        <li>I moved into <strong>software that talks to hardware</strong> — smart lighting, embedded devices, the code inside big computer systems.</li>
+        <li>Now I lead software teams: design, build, ship, fix — and help other engineers grow.</li>
+        <li>Where I landed: <strong>Computer Science</strong> work — building and shipping software every day.</li>
+      </ul>
+      <p class="lede" style="margin-top:1.1rem;max-width:38ch;">Your first path doesn’t have to be your forever path. Paths bend.</p>
+    </section>
+
+    <!-- CS + CE -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">My path</p>
+      <h2>I work in computer science &amp; computer engineering territory.</h2>
+      <div class="two-col">
+        <ul class="points">
+          <li><strong>Computer Science (CS)</strong> — more about software, algorithms, apps, data, AI.</li>
+          <li>Think: “How do we make the computer solve this problem?”</li>
+          <li>College majors often called CS, Software Engineering, or similar.</li>
+        </ul>
+        <ul class="points">
+          <li><strong>Computer Engineering (CE)</strong> — software + the hardware it runs on.</li>
+          <li>Think: chips, devices, embedded systems — code that talks to real electronics.</li>
+          <li>Sits between electrical engineering and CS.</li>
+        </ul>
+      </div>
+      <p class="lede" style="margin-top:1.25rem;max-width:40ch;">Lots of jobs blend both — that’s the mix I live in day to day.</p>
+    </section>
+
+    <!-- day in life -->
+    <section class="slide light" data-slide>
+      <p class="eyebrow">A normal day</p>
+      <h2>What I actually do all day.</h2>
+      <ul class="points">
+        <li>Check in with my team — what’s broken, what’s shipping next, who needs unblock.</li>
+        <li>Write and review code — often software that runs close to the hardware.</li>
+        <li>Hunt bugs. Search. Ask. Try again. Help others do the same.</li>
+        <li>Test changes, then ship so real products (and real people) get the fix.</li>
+      </ul>
+      <p class="lede" style="margin-top:1.1rem;max-width:38ch;">Not movie hacking. More: build → break → fix → ship → repeat.</p>
+    </section>
+
+    <!-- 4 discuss -->
+    <section class="slide light" data-slide>
+      <p class="eyebrow">Talk time · ~2 min</p>
+      <h2>Turn to someone next to you.</h2>
+      <div class="discuss-box">
+        <p class="prompt">What’s one app, game, or gadget that annoys you — and how would you fix it?</p>
+        <p class="prompt">Or: if you could invent anything for your friends or family, what would it be?</p>
+      </div>
+      <p class="timer-note">Shout out a favorite idea if you want</p>
+    </section>
+
+    <!-- 5 -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">Why bother?</p>
+      <h2>Because the cool stuff you use didn’t appear by magic.</h2>
+      <ul class="points">
+        <li>Clean water, safer cars, medical tools, reliable phones — engineers helped make those real.</li>
+        <li>Skill is a way to serve: family, neighbors, mosque, school, people you’ll never meet.</li>
+        <li>And yes — it’s also a real career with lots of paths. Service and a job can be the same work.</li>
+      </ul>
+    </section>
+
+    <!-- 5a fields -->
+    <section class="slide light" data-slide>
+      <p class="eyebrow">Kinds of engineers · 1 of 2</p>
+      <h2>There’s not just one kind.</h2>
+      <div class="grid-fields">
+        <div class="field">
+          <strong>Mechanical</strong>
+          <span>Design things that move — robots, cars, bikes, machines.</span>
+          <span>If you like building with your hands + physics, this is a classic path.</span>
+        </div>
+        <div class="field">
+          <strong>Electrical</strong>
+          <span>Circuits, chips, power, headphones, phone guts.</span>
+          <span>Think: “how does electricity become something useful?”</span>
+        </div>
+        <div class="field">
+          <strong>Civil</strong>
+          <span>Roads, bridges, buildings, water systems.</span>
+          <span>The stuff you notice when it works… and really notice when it doesn’t.</span>
+        </div>
+        <div class="field">
+          <strong>Chemical</strong>
+          <span>Turn materials into useful stuff — fuels, plastics, medicines.</span>
+          <span>Lab work plus big real-world processes.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5b fields -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">Kinds of engineers · 2 of 2</p>
+      <h2>A few more doors.</h2>
+      <div class="grid-fields">
+        <div class="field">
+          <strong>Biomedical</strong>
+          <span>Engineering meets health — imaging, implants, hospital tools, robotic surgery systems.</span>
+          <span>Great if you like biology and building things that help people.</span>
+        </div>
+        <div class="field">
+          <strong>Aerospace</strong>
+          <span>Planes, satellites, rockets, drones.</span>
+          <span>Same physics energy as mechanical — just aimed at the sky.</span>
+        </div>
+        <div class="field">
+          <strong>Industrial</strong>
+          <span>Make systems faster and less wasteful — factories, logistics, workflows.</span>
+          <span>Puzzle people who like optimizing “how does this whole thing run?”</span>
+        </div>
+        <div class="field">
+          <strong>Software</strong>
+          <span>Code behind apps, games, websites, and company tools.</span>
+          <span>We’ll zoom into this later — it’s my day job.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5c overlap -->
+    <section class="slide light" data-slide>
+      <p class="eyebrow">Plot twist</p>
+      <h2>These fields mix more than the labels suggest.</h2>
+      <ul class="points">
+        <li>A robot? Mechanical + electrical + software hanging out together.</li>
+        <li>A hospital device or surgical robot? Biomedical + mechanical + software people on the same team.</li>
+        <li>You don’t have to “pick forever” in 9th grade. Try stuff. Notice what you like.</li>
+        <li>Narrow later — after you’ve poked a few doors.</li>
+      </ul>
+    </section>
+
+    <!-- hot fields -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">Also hot right now</p>
+      <h2>Some modern lanes students ask about.</h2>
+      <div class="grid-fields">
+        <div class="field">
+          <strong>AR / VR</strong>
+          <span>Headset games, AR filters, training sims that feel like play.</span>
+        </div>
+        <div class="field">
+          <strong>Cybersecurity</strong>
+          <span>Find holes in systems before attackers do.</span>
+        </div>
+        <div class="field">
+          <strong>Space &amp; CubeSats</strong>
+          <span>Tiny satellites, rocket software, missions off Earth.</span>
+        </div>
+        <div class="field">
+          <strong>Climate tech</strong>
+          <span>Better batteries, cleaner grids, planet-focused tools.</span>
+        </div>
+        <div class="field">
+          <strong>Neurotech</strong>
+          <span>Brain–computer interfaces that help people move or speak.</span>
+        </div>
+        <div class="field">
+          <strong>AI engineering</strong>
+          <span>Models behind chatbots, cars, and recommendations.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- pick a door -->
+    <section class="slide light" data-slide>
+      <p class="eyebrow">Talk time · ~2 min</p>
+      <h2>Pick a door.</h2>
+      <div class="discuss-box">
+        <p class="prompt">Which field sounds the least boring — classic engineering or one of those futuristic lanes?</p>
+        <p class="prompt">Tell your partner why — even if it’s “robots,” “space,” or “I like phones.”</p>
+      </div>
+      <p class="timer-note">No wrong answer · you’re allowed to change your mind later</p>
+    </section>
+
+    <!-- 7 subjects + skills -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">In high school</p>
+      <h2>What actually helps — classes + habits.</h2>
+      <div class="two-col">
+        <ul class="points">
+          <li><strong>Math</strong> — algebra → geometry, precalc, calculus if you can.</li>
+          <li><strong>Physics</strong> — how the physical world behaves.</li>
+          <li><strong>Chemistry</strong> — especially for chem / materials / biomedical.</li>
+          <li><strong>CS / coding</strong> — useful everywhere; must-have for software.</li>
+          <li><strong>English / writing</strong> — you’ll explain ideas to humans.</li>
+        </ul>
+        <ul class="points">
+          <li><strong>Curiosity</strong> — “why did that break?” is a superpower.</li>
+          <li><strong>Not quitting</strong> — stuck is normal; stuck forever is optional.</li>
+          <li><strong>Teamwork</strong> — almost nothing ships alone.</li>
+          <li>You don’t need to be a genius. You need to keep showing up.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 8 activity intro -->
+    <section class="slide light" data-slide>
+      <p class="eyebrow">Mini challenge</p>
+      <h2>Engineers don’t just talk. Let’s build.</h2>
+      <ul class="points">
+        <li><strong>Goal:</strong> tallest free-standing tower that stays up for 10 seconds.</li>
+        <li><strong>Materials:</strong> 20 index cards (or half-sheets of paper) + 1 foot of tape per group.</li>
+        <li><strong>Time:</strong> 8 minutes. Phones are for photos after — not during.</li>
+      </ul>
+      <p class="lede" style="margin-top:1.5rem;max-width:34ch;">No glue guns. No “just hold it.” If you let go, it has to stand.</p>
+      <aside class="notes">Hand out 20 cards + ~1 ft tape per group before this slide. Split into groups based on room size.</aside>
+    </section>
+
+    <!-- 10 activity go -->
+    <section class="slide" data-slide data-build-slide>
+      <p class="eyebrow">Go time</p>
+      <p class="brand-mark" style="font-size:clamp(2.2rem,6vw,4rem);max-width:12ch;">Build<em>!</em></p>
+      <p class="lede">8 minutes. Tallest standing tower wins bragging rights.</p>
+      <div class="build-timer" id="build-timer">
+        <div class="clock" id="build-clock" aria-live="polite">8:00</div>
+        <div class="timer-actions">
+          <button type="button" id="timer-start">Start</button>
+          <button type="button" id="timer-reset">Reset</button>
+          <span class="timer-hint">or press T</span>
+        </div>
+      </div>
+      <div class="meta">
+        <span>20 cards · little tape</span>
+      </div>
+      <aside class="notes">Start with Start or T. You can flip to “How we win” — the timer stays on screen. Measure height when time’s up; only free-standing towers count.</aside>
+    </section>
+
+    <!-- 9 activity rules -->
+    <section class="slide light" data-slide data-build-pair>
+      <p class="eyebrow">How we win</p>
+      <h2>Same loop real engineers use.</h2>
+      <ul class="points">
+        <li><strong>1–2 min:</strong> sketch a plan (base matters more than height fantasies).</li>
+        <li><strong>Build.</strong> If it falls — good. That’s data.</li>
+        <li><strong>Rebuild smarter.</strong> Folds, tubes, and a wide base beat a wobbly card stack.</li>
+        <li><strong>Done when time’s up.</strong> We measure. We clap. We laugh at the dramatic collapses.</li>
+      </ul>
+      <aside class="notes">Timer floats while this is up. Measure height from the table to the top. Only free-standing towers count.</aside>
+    </section>
+
+    <!-- 11 debrief -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">Debrief · 2 min</p>
+      <h2>Quick share.</h2>
+      <div class="discuss-box">
+        <p class="prompt">What failed first — and what did you change?</p>
+        <p class="prompt">Did you plan too long, or build too fast with no plan?</p>
+      </div>
+      <p class="timer-note">That’s engineering: idea → build → break → improve</p>
+    </section>
+
+    <!-- 10 -->
+    <section class="slide light" data-slide>
+      <p class="eyebrow">The path (simplified)</p>
+      <h2>High school → college → job. That’s the usual movie — usual, not only.</h2>
+      <ul class="points">
+        <li><strong>Now:</strong> classes + clubs + anything you build for fun.</li>
+        <li><strong>College:</strong> engineering major, computer science, or something close — common path, not the only door.</li>
+        <li><strong>In between:</strong> internships, projects, people who’ll vouch for you.</li>
+        <li><strong>After:</strong> tons of places to work — companies, startups, research, you name it.</li>
+      </ul>
+    </section>
+
+    <!-- 10b Westwood pathways -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">Westwood · RRISD</p>
+      <h2>Academies / Programs of Study</h2>
+      <div class="grid-fields">
+        <div class="field">
+          <strong>Engineering</strong>
+          <span>PLTW path: Intro → Principles → specialty (electronics, civil/arch, aerospace…).</span>
+        </div>
+        <div class="field">
+          <strong>Computer Science</strong>
+          <span>CS I or AP CSP → AP CSA → CS III / IB CS / mobile apps.</span>
+        </div>
+        <div class="field">
+          <strong>Cybersecurity</strong>
+          <span>Protect systems — forensics, foundations, capstone.</span>
+        </div>
+        <div class="field">
+          <strong>Robotics</strong>
+          <span>Build + program robots. Hands-on engineering energy.</span>
+        </div>
+      </div>
+      <p class="lede" style="margin-top:1.1rem;max-width:42ch;"><strong>PLTW</strong> = Project Lead The Way — national hands-on STEM courses (projects, not just lectures). Westwood also has AP and IB — ask counseling what fits.</p>
+    </section>
+
+    <!-- 10c Vandegrift -->
+    <section class="slide light" data-slide>
+      <p class="eyebrow">Vandegrift · Leander ISD</p>
+      <h2>AP-heavy — and STEM you can build in.</h2>
+      <div class="grid-fields">
+        <div class="field">
+          <strong>AP + Capstone</strong>
+          <span>Calc, Physics, Chem, Bio, CSP, CSA… plus Seminar/Research if you want.</span>
+        </div>
+        <div class="field">
+          <strong>Engineering</strong>
+          <span>PLTW: Intro to Engineering Design → aerospace, electronics, practicum…</span>
+        </div>
+        <div class="field">
+          <strong>CS &amp; apps</strong>
+          <span>Programming track + mobile app development options.</span>
+        </div>
+        <div class="field">
+          <strong>ViperBots</strong>
+          <span>FIRST FRC/FTC — design, code, build, compete.</span>
+        </div>
+      </div>
+      <p class="lede" style="margin-top:1.1rem;max-width:42ch;"><strong>PLTW</strong> = Project Lead The Way — same hands-on STEM curriculum. Explore early; don’t take every AP at once.</p>
+    </section>
+
+    <!-- 10d shared tips -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">Wherever you go to school</p>
+      <h2>A loose game plan — not a stress checklist.</h2>
+      <div class="grid-fields">
+        <div class="field">
+          <strong>9th–10th</strong>
+          <span>Try a pathway course, a club, a small project. Notice what you don’t hate.</span>
+        </div>
+        <div class="field">
+          <strong>11th</strong>
+          <span>Go deeper: harder AP/IB, bigger project, lead on a team.</span>
+        </div>
+        <div class="field">
+          <strong>12th</strong>
+          <span>Show your story — what you built, stuck with, and can explain.</span>
+        </div>
+        <div class="field">
+          <strong>Every year</strong>
+          <span>Don’t drop math. Talk to counselors about AP vs IB vs academy lanes. Finish one thing.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- named activities -->
+    <section class="slide light" data-slide>
+      <p class="eyebrow">Want specific ideas?</p>
+      <h2>Stuff students around here actually join.</h2>
+      <div class="grid-fields">
+        <div class="field">
+          <strong>Math contests</strong>
+          <span>School math team, AMC contests, puzzle nights.</span>
+        </div>
+        <div class="field">
+          <strong>Robots</strong>
+          <span>School robotics — VEX, FIRST-style teams if your campus has one.</span>
+        </div>
+        <div class="field">
+          <strong>Science</strong>
+          <span>Science fair, Olympiad, or a messy experiment you run yourself.</span>
+        </div>
+        <div class="field">
+          <strong>Code</strong>
+          <span>Coding club, a weekend hackathon, or a small app you finish.</span>
+        </div>
+      </div>
+      <p class="lede" style="margin-top:1.25rem;max-width:38ch;">Pick what fits your school and your schedule — depth beats collecting activities.</p>
+    </section>
+
+    <!-- software worlds -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">My path · software</p>
+      <h2>Software shows up in stuff you already love.</h2>
+      <div class="grid-fields cols-5">
+        <div class="field">
+          <strong>Games</strong>
+          <span>Levels, multiplayer, graphics engines.</span>
+        </div>
+        <div class="field">
+          <strong>Phone apps</strong>
+          <span>Maps, chat, cameras, school portals.</span>
+        </div>
+        <div class="field">
+          <strong>Social &amp; creators</strong>
+          <span>Feeds, filters, live streams.</span>
+        </div>
+        <div class="field">
+          <strong>Music &amp; video</strong>
+          <span>Spotify, YouTube, Netflix streaming.</span>
+        </div>
+        <div class="field">
+          <strong>Cloud</strong>
+          <span>Remote computers for photos, games, AI.</span>
+        </div>
+        <div class="field">
+          <strong>AI tools</strong>
+          <span>Chatbots, filters, coding helpers.</span>
+        </div>
+        <div class="field">
+          <strong>Cars, drones, robots</strong>
+          <span>From vacuums to surgical robots.</span>
+        </div>
+        <div class="field">
+          <strong>Sports &amp; fitness</strong>
+          <span>Wearables, scores, fantasy leagues.</span>
+        </div>
+        <div class="field">
+          <strong>Shopping &amp; money</strong>
+          <span>Checkout, tickets, delivery apps.</span>
+        </div>
+        <div class="field">
+          <strong>Security</strong>
+          <span>Logins, fraud checks, safe accounts.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- software scavenger -->
+    <section class="slide light" data-slide>
+      <p class="eyebrow">Talk time · ~1–2 min</p>
+      <h2>Software scavenger hunt.</h2>
+      <div class="discuss-box">
+        <p class="prompt">Look at those tiles. Point to one kind of software you already used today.</p>
+        <p class="prompt">Bonus: name the app or thing — maps? chat? YouTube? a game?</p>
+      </div>
+      <p class="timer-note">Quick share · a few volunteers</p>
+    </section>
+
+    <!-- 12 AI -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">Okay, AI</p>
+      <h2>AI is everywhere — and engineers build a lot of it.</h2>
+      <ul class="points">
+        <li>Chatbots, photo filters, recommendations, coding helpers — people engineered those systems.</li>
+        <li>It’s fast. It’s also sometimes wrong with total confidence.</li>
+        <li>Use it like a coach sitting next to you — not like a robot doing your brain for you.</li>
+        <li>You’ll probably work with it someday either way. Knowing how stuff works beats being scared of it.</li>
+      </ul>
+    </section>
+
+    <!-- 12b why learn -->
+    <section class="slide light" data-slide>
+      <p class="eyebrow">But wait</p>
+      <h2>If AI can spit out answers… why still learn math and science?</h2>
+      <ul class="points">
+        <li><strong>Math</strong> trains you to spot patterns and catch nonsense numbers.</li>
+        <li><strong>Science</strong> trains you to test ideas instead of guessing.</li>
+        <li><strong>Tech literacy</strong> means you know what a tool can and can’t do.</li>
+        <li><strong>Your own judgment</strong> is the filter — “does this answer even make sense?”</li>
+      </ul>
+      <p class="lede" style="margin-top:1.25rem;max-width:36ch;">Getting an answer is easy now. Knowing if it’s any good? That’s on you.</p>
+    </section>
+
+    <!-- 12c future of work -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">Looking ahead</p>
+      <h2>Jobs will keep changing. That’s normal.</h2>
+      <ul class="points">
+        <li><strong>AI as a teammate</strong> — less “type every line by hand,” more “steer the tool and check the result.”</li>
+        <li><strong>Mixed teams</strong> — software people, hardware people, designers, business folks in the same chat.</li>
+        <li><strong>Judgment still wins</strong> — safety, cost, ethics, “should we ship this?”</li>
+        <li><strong>Keep learning</strong> — what you use at 30 won’t be only what you learned at 18. That’s okay.</li>
+      </ul>
+    </section>
+
+    <!-- 13 discuss -->
+    <section class="slide light" data-slide>
+      <p class="eyebrow">Talk time · ~2 min</p>
+      <h2>Be honest.</h2>
+      <div class="discuss-box">
+        <p class="prompt">Have you used AI for school, art, coding, or just for fun?</p>
+        <p class="prompt">What’s a smart use… and what’s the “I’m not learning anything” use?</p>
+      </div>
+      <p class="timer-note">A few people can share with the room</p>
+    </section>
+
+    <!-- service thread -->
+    <section class="slide light" data-slide>
+      <p class="eyebrow">Bigger than a résumé</p>
+      <h2>Engineering is a way to help people.</h2>
+      <ul class="points">
+        <li><strong>Build for others</strong> — safer tools, clearer apps, cleaner water, better classrooms, care for elders.</li>
+        <li><strong>Start close to home</strong> — mosque, school, neighborhood, family. Who has a problem you could ease?</li>
+        <li><strong>Learn so you can give</strong> — hard classes and projects aren’t just for applications; they grow what you can offer.</li>
+        <li><strong>Show up with people</strong> — sports, arts, tutoring, volunteering. Character travels with your skills.</li>
+      </ul>
+    </section>
+
+    <!-- try this month -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">This month</p>
+      <h2>One small thing to try.</h2>
+      <ul class="points">
+        <li><strong>Do this:</strong> finish one tiny build — a webpage, a Scratch/Python game, or a robot club night — and show a friend.</li>
+      </ul>
+      <p class="lede" style="margin:1.25rem 0 0.75rem;max-width:40ch;">Free starting points:</p>
+      <ul class="points">
+        <li><strong>Club:</strong> school robotics, coding club, or science fair — ask a teacher this week.</li>
+        <li><strong>Coding site:</strong> <a href="https://www.freecodecamp.org/" target="_blank" rel="noopener">freeCodeCamp.org</a> or <a href="https://code.org/" target="_blank" rel="noopener">code.org</a> — pick one lesson, not twelve tabs.</li>
+        <li><strong>At home:</strong> build a simple website about something you love, or remix a small game tutorial end-to-end.</li>
+      </ul>
+    </section>
+
+    <!-- honest FAQ -->
+    <section class="slide light" data-slide>
+      <p class="eyebrow">Since you’ll ask anyway</p>
+      <h2>Three honest answers.</h2>
+      <ul class="points">
+        <li><strong>Money:</strong> many engineering jobs pay well, but it varies a lot by role and city — don’t pick a path only for the paycheck.</li>
+        <li><strong>Job outlook:</strong> good overall in a lot of engineering areas, but hot titles change; learning how to learn beats chasing one buzzword.</li>
+        <li><strong>Non-college routes:</strong> real options exist (trades, certifications, military tech, apprenticeships) — college is common for engineering, not the only door into tech.</li>
+      </ul>
+    </section>
+
+    <!-- 17 -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">That’s it from me</p>
+      <h1>Your turn.</h1>
+      <p class="lede">Ask about jobs, AI, college, robotics, camps, mentors, coding — or “is this even for me?”</p>
+      <ul class="points" style="margin-top:1.35rem;">
+        <li><strong>Find me after</strong> if you want a next step — or <strong>ask a teacher this week</strong> about one club or class.</li>
+      </ul>
+      <p class="lede" style="margin-top:1.25rem;max-width:42ch;">This week: one club question · one free lesson · one tiny build. That’s enough.</p>
+      <div class="meta">
+        <span>Thanks for hanging out</span>
+      </div>
+    </section>
+  </div>
+
+  <div id="float-timer" aria-hidden="true">8:00</div>
+
+  <nav class="nav" aria-label="Presentation controls">
+    <button type="button" id="prev" aria-label="Previous slide">Prev</button>
+    <div class="progress" id="dots" role="tablist" aria-label="Slides"></div>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <span class="counter" id="counter">01 / 32</span>
+      <button type="button" id="next" aria-label="Next slide">Next</button>
+    </div>
+  </nav>
+
+  <script>
+    const slides = [...document.querySelectorAll("[data-slide]")];
+    const dots = document.getElementById("dots");
+    const counter = document.getElementById("counter");
+    const prevBtn = document.getElementById("prev");
+    const nextBtn = document.getElementById("next");
+    let i = 0;
+
+    slides.forEach((_, idx) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("aria-label", "Go to slide " + (idx + 1));
+      b.addEventListener("click", () => go(idx));
+      dots.appendChild(b);
+    });
+
+    const notesDock = document.getElementById("speaker-notes");
+    const notesBody = notesDock.querySelector(".body");
+
+    function syncNotes() {
+      const src = slides[i].querySelector("aside.notes");
+      const text = src ? src.textContent.trim() : "";
+      if (text) {
+        notesBody.textContent = text;
+        notesDock.classList.remove("empty");
+      } else {
+        notesBody.textContent = "No notes on this slide.";
+        notesDock.classList.add("empty");
+      }
+    }
+
+    function go(n) {
+      i = Math.max(0, Math.min(slides.length - 1, n));
+      slides.forEach((s, idx) => s.classList.toggle("active", idx === i));
+      [...dots.children].forEach((d, idx) => {
+        if (idx === i) d.setAttribute("aria-current", "true");
+        else d.removeAttribute("aria-current");
+      });
+      counter.textContent = String(i + 1).padStart(2, "0") + " / " + String(slides.length).padStart(2, "0");
+      prevBtn.disabled = i === 0;
+      nextBtn.disabled = i === slides.length - 1;
+      syncNotes();
+      updateFloatVisibility();
+    }
+
+    const BUILD_SECONDS = 8 * 60;
+    const buildClock = document.getElementById("build-clock");
+    const floatTimer = document.getElementById("float-timer");
+    const buildTimerEl = document.getElementById("build-timer");
+    const timerStartBtn = document.getElementById("timer-start");
+    const timerResetBtn = document.getElementById("timer-reset");
+    let remaining = BUILD_SECONDS;
+    let timerId = null;
+    let timerRunning = false;
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return m + ":" + String(s).padStart(2, "0");
+    }
+
+    function paintTimer() {
+      const label = formatTime(remaining);
+      buildClock.textContent = label;
+      floatTimer.textContent = label;
+      buildTimerEl.classList.toggle("done", remaining === 0);
+      timerStartBtn.textContent = timerRunning ? "Pause" : remaining === 0 ? "Restart" : remaining < BUILD_SECONDS ? "Resume" : "Start";
+    }
+
+    function updateFloatVisibility() {
+      const slide = slides[i];
+      const showFloat = slide.hasAttribute("data-build-pair") && (timerRunning || remaining < BUILD_SECONDS);
+      document.body.classList.toggle("show-float-timer", showFloat);
+    }
+
+    function tick() {
+      if (remaining <= 0) {
+        clearInterval(timerId);
+        timerId = null;
+        timerRunning = false;
+        remaining = 0;
+        paintTimer();
+        updateFloatVisibility();
+        return;
+      }
+      remaining -= 1;
+      paintTimer();
+      if (remaining === 0) {
+        clearInterval(timerId);
+        timerId = null;
+        timerRunning = false;
+        paintTimer();
+      }
+      updateFloatVisibility();
+    }
+
+    function startTimer() {
+      if (timerRunning) return;
+      if (remaining <= 0) remaining = BUILD_SECONDS;
+      timerRunning = true;
+      paintTimer();
+      updateFloatVisibility();
+      timerId = setInterval(tick, 1000);
+    }
+
+    function pauseTimer() {
+      timerRunning = false;
+      if (timerId) clearInterval(timerId);
+      timerId = null;
+      paintTimer();
+      updateFloatVisibility();
+    }
+
+    function resetTimer() {
+      pauseTimer();
+      remaining = BUILD_SECONDS;
+      paintTimer();
+      updateFloatVisibility();
+    }
+
+    function toggleTimer() {
+      if (timerRunning) pauseTimer();
+      else startTimer();
+    }
+
+    timerStartBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleTimer();
+    });
+    timerResetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      resetTimer();
+    });
+    paintTimer();
+
+    prevBtn.addEventListener("click", () => go(i - 1));
+    nextBtn.addEventListener("click", () => go(i + 1));
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+        e.preventDefault();
+        go(i + 1);
+      } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+        e.preventDefault();
+        go(i - 1);
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        go(0);
+      } else if (e.key === "End") {
+        e.preventDefault();
+        go(slides.length - 1);
+      } else if (e.key === "n" || e.key === "N") {
+        e.preventDefault();
+        syncNotes();
+        document.body.classList.toggle("show-notes");
+      } else if (e.key === "t" || e.key === "T") {
+        e.preventDefault();
+        toggleTimer();
+      }
+    });
+
+    let touchX = null;
+    document.addEventListener("touchstart", (e) => {
+      touchX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    document.addEventListener("touchend", (e) => {
+      if (touchX == null) return;
+      const dx = e.changedTouches[0].screenX - touchX;
+      if (Math.abs(dx) > 50) go(i + (dx < 0 ? 1 : -1));
+      touchX = null;
+    }, { passive: true });
+
+    go(0);
+  </script>
+</body>
+</html>
